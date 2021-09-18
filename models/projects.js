@@ -26,7 +26,7 @@ const Project = db.define('projects', {
     validate: {
       notNull: true,
       notEmpty: true,
-      len: [4, 20]
+      len: [2, 20]
     }
   },
   difficulty_level_id: {
@@ -36,6 +36,15 @@ const Project = db.define('projects', {
       model: 'difficulty_levels',
       key: 'id'
     },
+    validate: {
+      notNull: true,
+      notEmpty: true,
+    }
+  },
+  likesCounter: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
     validate: {
       notNull: true,
       notEmpty: true,

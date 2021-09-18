@@ -43,6 +43,15 @@ router.get('/download/:filename', async function (req, res, next) {
 })
 
 //PUT
+router.put('/:projectId/:userId/remove', validateCookie, async function (req, res, next) {
+    try {
+        const removeProjectRes = await api.hideProject(req.params.projectId, req.params.userId)
+        res.send(removeProjectRes)
+    } catch (err) {
+        console.log(err)
+    }
+});
+
 router.put('/', fileUploads, validateCookie, async function (req, res, next) {
     const dataObj = { ...req.body }
     if (dataObj.pictures) delete dataObj.pictures
@@ -57,15 +66,6 @@ router.put('/', fileUploads, validateCookie, async function (req, res, next) {
     try {
         const updateProjectRes = await api.updateProjectData({ ...dataObj })
         res.send(updateProjectRes)
-    } catch (err) {
-        console.log(err)
-    }
-});
-
-router.put('/:projectId/:userId/remove', validateCookie, async function (req, res, next) {
-    try {
-        const removeProjectRes = await api.hideProject(req.params.projectId, req.params.userId)
-        res.send(removeProjectRes)
     } catch (err) {
         console.log(err)
     }
